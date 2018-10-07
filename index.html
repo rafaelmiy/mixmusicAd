@@ -111,15 +111,15 @@
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
         var audio_context = new AudioContext();
 
-        var stored_buffer = null;
+        var stored_buffer = [];
 
         function loadDingSound(num) {
 
-            if (stored_buffer) {  // attempt to retrieve stored file
+            if (stored_buffer[num]) {  // attempt to retrieve stored file
 
                 console.log('playing audio from localForage');
 
-                playSound(stored_buffer);
+                playSound(stored_buffer[num]);
 
             } else {
 
@@ -135,7 +135,7 @@
 
                     audio_context.decodeAudioData(request.response, function(buffer) {
 
-                        stored_buffer = buffer; // store buffer for replay later
+                        stored_buffer[num] = buffer; // store buffer for replay later
 
                         playSound(buffer);
 
