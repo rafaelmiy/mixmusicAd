@@ -65,20 +65,20 @@
     </body>
 
     <script>
-        var bleep = new Audio();
+        var bleep = [];
         var countAd = 0;
         
         function loadContent(num){
-            // if(bleep[num].src != "beat"+num+".mp3"){
-                bleep.src = "beat"+num+".mp3";
-                bleep.play(); // Play button sound now
-            // }
+            if(bleep[num].src != "beat"+num+".mp3"){
+                bleep[num].src = "beat"+num+".mp3";
+                bleep[num].play(); // Play button sound now
+            }
             // var div1 = document.getElementById("div1");
             // div1.innerHTML = "Loaded content for section "+num;
-            // countAd++;
-            // if(countAd==20 || countAd==50){
-            //     alert();
-            // }
+            countAd++;
+            if(countAd==20 || countAd==50){
+                alert();
+            }
         }
 
         // Conta quantos botões existem e instancia todos
