@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>Test</title>
+</head>
+<style>
+    body{
+        background-color: black;
+    }
+    button{
+        background-color: #fff;
+        width: 200px;
+        height: 200px;
+        display: block;
+        margin: 0 auto;
+        border-radius: 20px;
+    }
+</style>
+<body>
+
+    <script>
+
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+var audio_context = new AudioContext();
+
+var stored_buffer = null;
+
+function loadDingSound() {
+
+    if (stored_buffer) {  // attempt to retrieve stored file
+
+        console.log('playing audio from localForage');
+
+        playSound(stored_buffer);
+
+    } else {
+
+        var request = new XMLHttpRequest();
+
+        var audio_url = "purururu.mp3"; // relative path to reach mp3 file
+
+        request.open('GET', audio_url, true); // loading local file for now
+        request.responseType = 'arraybuffer';
+
+        // Decode asynchronously
+        request.onload = function() {
+
+            audio_context.decodeAudioData(request.response, function(buffer) {
+
+                stored_buffer = buffer; // store buffer for replay later
+
+                playSound(buffer);
+
+            });
+        };
+        request.send();
+    }
+}
+
+function playSound(buffer) {
+
+    var source = audio_context.createBufferSource(); // creates a sound source
+    source.buffer = buffer;                    // tell the source which sound to play
+    source.connect(audio_context.destination);       // connect source to speakers
+    source.start(0);                           // play the source now
+}
+
+// init
+// loadDingSound();
+
+
+    </script>
+
+      <body onkeypress="loadDingSound()">
+
+    <button onclick="loadDingSound()"></button>
+
+</body>
+</html>
