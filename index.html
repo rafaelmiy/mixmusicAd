@@ -148,6 +148,7 @@
         function playSound(buffer) {
 
             var source = audio_context.createBufferSource(); // creates a sound source
+            console.log(source);
             source.buffer = buffer;                    // tell the source which sound to play
             source.connect(audio_context.destination);       // connect source to speakers
             source.start(0);                           // play the source now
