@@ -113,7 +113,7 @@
 
         var stored_buffer = null;
 
-        function loadDingSound() {
+        function loadDingSound(num) {
 
             if (stored_buffer) {  // attempt to retrieve stored file
 
@@ -125,7 +125,7 @@
 
                 var request = new XMLHttpRequest();
 
-                var audio_url = "beat1.mp3"; // relative path to reach mp3 file
+                var audio_url = "beat"+num+".mp3"; // relative path to reach mp3 file
 
                 request.open('GET', audio_url, true); // loading local file for now
                 request.responseType = 'arraybuffer';
