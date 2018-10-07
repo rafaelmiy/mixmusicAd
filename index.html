@@ -53,7 +53,7 @@
     </head>
     <body>
         <main>
-            <button class="button" onmousedown="loadDingSound(1)" id="ba"></button>
+            <button class="button" onmousedown="loadContent(1)" id="ba"></button>
             <button class="button" onmousedown="loadContent(2)" id="bb"></button>
             <button class="button" onmousedown="loadContent(3)" id="bc"></button>
             <button class="button" onmousedown="loadContent(4)" id="base" id="bd"></button>
@@ -81,7 +81,6 @@
             }
         }
 
-        window.AudioContext = window.AudioContext || window.webkitAudioContext;
         // Conta quantos botões existem e instancia todos
         var buttons = document.getElementsByClassName("button").length;
         var audio_context = [];
@@ -109,11 +108,12 @@
         }
         
 
-        // var audio_context = new AudioContext();
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        var audio_context = new AudioContext();
 
         var stored_buffer = null;
 
-        function loadDingSound(num) {
+        function loadDingSound() {
 
             if (stored_buffer) {  // attempt to retrieve stored file
 
@@ -125,7 +125,7 @@
 
                 var request = new XMLHttpRequest();
 
-                var audio_url = "beat"+num+".mp3"; // relative path to reach mp3 file
+                var audio_url = "beat1.mp3"; // relative path to reach mp3 file
 
                 request.open('GET', audio_url, true); // loading local file for now
                 request.responseType = 'arraybuffer';
@@ -154,6 +154,6 @@
         }
 
         // init
-        // loadDingSound(1);
+        loadDingSound();
     </script>
 <html>
