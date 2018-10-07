@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+        <title>MixMusic</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <style>
+            body{
+                background-color: rgb(32, 32, 32);
+            }
+            main{
+                text-align: center;
+                position: fixed;
+                width: 100%;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+            .button{
+                border: none;
+                width: 30%;
+                background-color: #fff;
+                border-radius: 10px;
+                margin: 1%;
+                outline: none;
+            }
+            .button:after{
+                content: "";
+                display: block;
+                padding-bottom: 100%;
+            }
+            .button:active{
+                background-image: linear-gradient(#5EFF00, #0068FF);
+            }
+            .button.playing{
+                background-image: linear-gradient(#5EFF00, #0068FF);
+            }
+            .auto-ritmo{
+                width: 90%;
+                background-color: #fff;
+                display: block;
+                height: 40px;
+                margin: 0 auto;
+                margin-top: 10px;
+                line-height: 40px;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <button class="button" onmousedown="loadContent(1)" id="ba"></button>
+            <button class="button" onmousedown="loadContent(2)" id="bb"></button>
+            <button class="button" onmousedown="loadContent(3)" id="bc"></button>
+            <button class="button" onmousedown="loadContent(4)" id="base" id="bd"></button>
+            <button class="button" onmousedown="loadContent(5)" id="be"></button>
+            <button class="button" onmousedown="loadContent(6)" id="bf"></button>
+            <a class="auto-ritmo" onclick="autoRitmo()">Ritmo automático</a>
+        </main>
+        <!-- <div id="div1">Default content ...</div> -->
+    </body>
+
+    <script>
+        var bleep = [];
+        var countAd = 0;
+        
+        function loadContent(num){
+            if(bleep[num].src != "beat"+num+".mp3"){
+                bleep[num].src = "beat"+num+".mp3";
+                bleep[num].play(); // Play button sound now
+            }
+            // var div1 = document.getElementById("div1");
+            // div1.innerHTML = "Loaded content for section "+num;
+            countAd++;
+            if(countAd==20 || countAd==50){
+                alert();
+            }
+        }
+
+        // Conta quantos botões existem e instancia todos
+        var buttons = document.getElementsByClassName("button").length;
+        for (var i = 1; i<=buttons; i++){
+            bleep[i] = new Audio();
+        }
+
+        // Faz o loop do sample 4
+        bleep[4].addEventListener('ended', function() {
+            if(document.getElementById("base").classList.contains("playing")){
+                this.currentTime = 0;
+                this.play();
+            }
+        }, false);
+        
+        document.getElementById("base").onclick = function() {playingState()};
+
+        function playingState(){
+            document.getElementById("base").classList.toggle("playing");
+        }
+
+        function autoRitmo(){
+            $("#ba").mousedown();
+        }
+        
+    </script>
+<html>
